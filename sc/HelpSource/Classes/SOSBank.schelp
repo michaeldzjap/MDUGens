@@ -1,0 +1,48 @@
+CLASS:: SOSBank
+SUMMARY:: A bank of MIMO second order filter sections (biquad).
+CATEGORIES::  UGens>Filters>Linear
+RELATED:: Classes/SOS
+
+DESCRIPTION::
+A bank of MIMO (Multi Input Multi Output) second order filter sections. Filter coefficients need to be provided directly, just as in the case of LINK::Classes/SOS::. The second order sections are implemented in Direc-Form-II (poles preceding the zeros). This will make the MIMO calculations a lot more efficient, as the recursive part of the system only needs to be calculated once per section.
+
+CLASSMETHODS::
+
+METHOD:: ar
+
+ARGUMENT:: numInputs
+The number of inputs to the system.
+NOTE:: The number of inputs argument should not be confused with the dimensionality of the input signal to the filter (which is always assumed to be a single output stream from another ugen). It corresponds to the number of inputs which are present in the transfer function matrix (i.e. to the number of columns in the unflattened transfer function matrix).::
+
+ARGUMENT:: numOutputs
+The number of outputs to the system.
+NOTE:: The number of output arguments does not necessarily correspond to the number of actual outputs of this ugen, which is in fact the product of CODE::numInputs:: and CODE::numOutputs::. It corresponds to the number of outputs which are present in the transfer function matrix (i.e. to the number of rows in the unflattened transfer function matrix).::
+
+ARGUMENT:: in
+The signal input, assumed to be a single stream from another ugen.
+NOTE:: Multi-channel expansion will apply the same transfer function matrix to every channel of the signal input. This will effectively mean that the individual responses of the input signals to a specific transfer function (corresponding to a particular combination of input and output) will be summed together.::
+
+ARGUMENT:: bufnum_a0
+The index of the LINK::Classes/Buffer:: to use for the a0 coefficients. If the transfer function has no CODE::a0:: coefficients, leave this set to CODE::-1::.
+NOTE:: This buffer should be CODE::numInputs::*CODE::numOutputs:: the size of the CODE::b1:: and CODE::b2:: buffer.::
+
+ARGUMENT:: bufnum_a1
+The index of the LINK::Classes/Buffer:: to use for the a1 coefficients. If the transfer function has no CODE::a1:: coefficients, leave this set to CODE::-1::.
+NOTE:: This buffer should be CODE::numInputs::*CODE::numOutputs:: the size of the CODE::b1:: and CODE::b2:: buffer.::
+
+ARGUMENT:: bufnum_a2
+The index of the LINK::Classes/Buffer:: to use for the a2 coefficients. If the transfer function has no CODE::a2:: coefficients, leave this set to CODE::-1::.
+NOTE:: This buffer should be CODE::numInputs::*CODE::numOutputs:: the size of the CODE::b1:: and CODE::b2:: buffer.::
+
+ARGUMENT:: bufnum_b1
+The index of the LINK::Classes/Buffer:: to use for the b1 coefficients. If the transfer function has no CODE::b1:: coefficients, leave this set to CODE::-1::.
+
+ARGUMENT:: bufnum_b2
+The index of the LINK::Classes/Buffer:: to use for the b2 coefficients. If the transfer function has no CODE::b2:: coefficients, leave this set to CODE::-1::.
+
+ARGUMENT:: mul
+
+ARGUMENT:: add
+
+EXAMPLES::
+To see an example of where CODE::SOSBank:: can be of actual use, see the LINK::Classes/ResonatorNetwork:: examples section of the PMLib quark.
