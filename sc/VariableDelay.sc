@@ -1,3 +1,14 @@
+/**
+ * Eliminate clicks that result from changing the delay time abruptly by crossfading
+ * between different taps and applying a window function to the output of each tap.
+ *
+ * Parameters:
+ * input - The N-channel input signal to the delay line
+ * maxDelayTime - The maximum delay time of the delay line buffer
+ * delayTime - Time (seconds) by whichthe input signal will be delayed
+ * dur - The size / length of the window in seconds
+ * overlap - The number of windows that will overlap
+ */
 VariableDelay {
 
 	*ar { arg input, maxDelayTime = 0.2, delayTime = 0.2, dur = 0.2, overlap = 2;
