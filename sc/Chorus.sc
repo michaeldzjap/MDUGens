@@ -10,7 +10,8 @@ Chorus {
 		numChannels = input.numChannels;
 
 		feedback = LocalIn.ar(numChannels);
-		input = (numChannels === 1).if { input ! 2 } { input } - feedback;
+		input = input - feedback;
+		(numChannels === 1).if { input = input ! 2 };
 
 		phase = Phasor.ar(0, rate * 2pi * SampleDur.ir, 0, 2pi);
 		delayed = numChannels collect: { |i|
