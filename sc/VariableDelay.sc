@@ -15,8 +15,8 @@ VariableDelay {
 		var trig, phase, window, output, rate = dur.reciprocal;
 
 		trig = Impulse.ar(rate, { |i| i * overlap.reciprocal} ! overlap);
-		phase = Phasor.ar(trig, rate * 2pi * SampleDur.ir, 0, 2pi);
-		window = SinOsc.ar(0, phase - 0.5pi, 0.5, 0.5);
+		phase = Phasor.ar(trig.first, rate * 2pi * SampleDur.ir, 0, 2pi);
+		window = SinOsc.ar(0, phase - 0.5pi + ({ |i| i * overlap.reciprocal * 2pi } ! overlap), 0.5, 0.5);
 
 		delayTime = Latch.ar(delayTime.asAudioRateInput, trig);
 		output = TapDelay.ar(input, maxDelayTime, delayTime, 1);
