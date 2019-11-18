@@ -17,8 +17,8 @@ Transposer {
 		window = SinOsc.ar(0, (phase * 2pi) - 0.5pi, 0.5, 0.5);
 
 		output = (input.numChannels > 1).if {
-			input collect: { |in, i|
-				DelayC.ar(in[i], 0.5, phase * dur + BlockSize.ir.reciprocal, window).sum
+			input collect: { |in|
+				DelayC.ar(in, 0.5, phase * dur + BlockSize.ir.reciprocal, window).sum
 			}
 		} {
 			DelayC.ar(input, 0.5, phase * dur + BlockSize.ir.reciprocal, window).sum
