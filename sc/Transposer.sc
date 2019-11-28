@@ -12,7 +12,7 @@ Transposer {
 	*ar { arg input, transposition = 0, dur = 0.12, overlap = 2;
 		var freq, phase, window, output;
 
-		freq = (transposition.midiratio - 1) * -1 / dur;
+		freq = (transposition.midiratio - 1) * -1 * dur.reciprocal;
 		phase = (Phasor.ar(0, freq * SampleDur.ir, 0, 1) + ({ |i| i * overlap.reciprocal} ! overlap)).wrap(0, 1);
 		window = SinOsc.ar(0, (phase * 2pi) - 0.5pi, 0.5, 0.5);
 

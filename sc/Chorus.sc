@@ -16,7 +16,7 @@ Chorus {
 		phase = Phasor.ar(0, rate * 2pi * SampleDur.ir, 0, 2pi);
 		delayed = numChannels collect: { |i|
 			TapDelay.ar(input[i], delayTime * 2, [
-				delayTime, SinOsc.ar(0, 0.5pi * i + phase, delayTime, delayTime)
+				delayTime, SinOsc.ar(0, 0.5pi * i + phase, delayTime * depth, delayTime)
 			], 4);
 		};
 
