@@ -5,7 +5,7 @@
  *
  * Parameters:
  * input - The N-channel input signal for the delay line
- * dur - The size / length of the reversed segment in seconds
+ * dur - The size / length of the window (i.e. reversed segment) in seconds
  * maxDelayTime - The maximum delay time of the delay line buffer
  * overlap - The number of windows that will overlap
  */
