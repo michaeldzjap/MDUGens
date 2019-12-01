@@ -14,15 +14,14 @@ Reverser {
 	*ar { arg input, dur = 0.5, maxDelayTime = 1, overlap = 2;
 		var freq, phase, window, blockDur, output;
 
-		dur = dur.clip(0, maxDelayTime * 0.5);
+		blockDur = BlockSize.ir.reciprocal;
+		dur = dur.clip(blockDur, maxDelayTime * 0.5);
 
 		freq = dur.reciprocal * 2;
 		phase = { |i|
 			(Phasor.ar(0, freq * SampleDur.ir, 0, 1) + (i * overlap.reciprocal)).wrap(0, 1)
 		} ! overlap;
 		window = SinOsc.ar(0, phase * 2pi - 0.5pi, 0.5, 0.5);
-
-		blockDur = BlockSize.ir.reciprocal;
 
 		^(input.numChannels > 1).if {
 			input collect: { |ip|
