@@ -36,7 +36,7 @@ TPTAllpass : Filter {
 
 TPTLowshelf : Filter {
 
-	*ar { arg in = 0.0, freq = 440.0, gain = 1.0, mul = 1.0, add = 0.0;
+	*ar { arg in = 0.0, freq = 440.0, gain = 0.0, mul = 1.0, add = 0.0;
 		^this.multiNew('audio', in.asAudioRateInput, freq, gain).madd(mul, add);
 	}
 
@@ -48,7 +48,7 @@ TPTLowshelf : Filter {
 
 TPTHighshelf : Filter {
 
-	*ar { arg in = 0.0, freq = 440.0, gain = 1.0, mul = 1.0, add = 0.0;
+	*ar { arg in = 0.0, freq = 440.0, gain = 0.0, mul = 1.0, add = 0.0;
 		^this.multiNew('audio', in.asAudioRateInput, freq, gain).madd(mul, add);
 	}
 
@@ -60,7 +60,7 @@ TPTHighshelf : Filter {
 
 TPTTilt : Filter {
 
-	*ar { arg in = 0.0, freq = 440.0, gain = 1.0, mul = 1.0, add = 0.0;
+	*ar { arg in = 0.0, freq = 440.0, gain = 0.0, mul = 1.0, add = 0.0;
 		^this.multiNew('audio', in.asAudioRateInput, freq, gain).madd(mul, add);
 	}
 
