@@ -14,8 +14,7 @@ Reverser {
 	*ar { arg input, dur = 0.5, maxDelayTime = 1, overlap = 2;
 		var freq, phase, window, blockDur, output;
 
-		blockDur = BlockSize.ir.reciprocal;
-		dur = dur.clip(blockDur, maxDelayTime * 0.5);
+		dur = dur.clip(BlockSize.ir.reciprocal, maxDelayTime);
 
 		freq = dur.reciprocal * 2;
 		phase = { |i|
@@ -23,13 +22,15 @@ Reverser {
 		} ! overlap;
 		window = SinOsc.ar(0, phase * 2pi - 0.5pi, 0.5, 0.5);
 
-		^(input.numChannels > 1).if {
+		output = (input.numChannels > 1).if {
 			input collect: { |ip|
-				DelayC.ar(ip, maxDelayTime + blockDur, phase * dur + blockDur, window).sum;
+				DelayC.ar(ip, maxDelayTime, phase * dur, window).sum;
 			}
 		} {
-			DelayC.ar(input, maxDelayTime + blockDur, phase * dur + blockDur, window).sum;
+			DelayC.ar(input, maxDelayTime, phase * dur, window).sum;
 		};
+
+		^(2 * overlap.reciprocal * output);
 	}
 
 }
