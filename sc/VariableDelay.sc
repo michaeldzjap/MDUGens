@@ -14,10 +14,11 @@ VariableDelay {
 	*ar { arg input, maxDelayTime = 0.2, delayTime = 0.2, dur = 0.2, overlap = 2;
 		var trig, phase, window, output, offset, rate = dur.reciprocal;
 
-		offset = { |i| i * overlap.reciprocal } ! overlap;
-		trig = Impulse.ar(rate, offset);
-		phase = Phasor.ar(trig.first, rate * 2pi * SampleDur.ir, 0, 2pi);
-		window = SinOsc.ar(0, phase - 0.5pi + (offset * 2pi), 0.5, 0.5);
+		phase = { |i|
+			(Phasor.ar(0, rate * SampleDur.ir, 0, 1) + (i * overlap.reciprocal)).wrap(0, 1)
+		} ! overlap;
+		window = SinOsc.ar(0, phase * 2pi - 0.5pi, 0.5, 0.5);
+		trig = (phase - Delay1.ar(phase)) < 0 + Impulse.ar(0); // Triggers on every phasor cycle reset
 
 		delayTime = Latch.ar(delayTime.asAudioRateInput, trig);
 		output = TapDelay.ar(input, maxDelayTime, delayTime, 1);
@@ -28,7 +29,7 @@ VariableDelay {
 			(output * window).sum;
 		};
 
-		^(output * overlap.sqrt.reciprocal);
+		^(2 * overlap.reciprocal * output);
 	}
 
 }
