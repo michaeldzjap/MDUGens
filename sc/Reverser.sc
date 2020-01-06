@@ -23,9 +23,7 @@ Reverser {
 		window = SinOsc.ar(0, phase * 2pi - 0.5pi, 0.5, 0.5);
 
 		output = (input.numChannels > 1).if {
-			input collect: { |ip|
-				DelayC.ar(ip, maxDelayTime, phase * dur, window).sum;
-			}
+			input collect: { |in| DelayC.ar(in, maxDelayTime, phase * dur, window).sum }
 		} {
 			DelayC.ar(input, maxDelayTime, phase * dur, window).sum;
 		};
