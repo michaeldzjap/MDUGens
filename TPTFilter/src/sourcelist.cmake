@@ -1,0 +1,22 @@
+set(PLUGIN_SOURCES ${PLUGIN_SOURCES}
+    Allpass.cpp
+    Allpass2.cpp
+    Bandpass.cpp
+    Bandshelf.cpp
+    Bandstop.cpp
+    Base.cpp
+    Highpass.cpp
+    Highpass2.cpp
+    Highshelf.cpp
+    Highshelf2.cpp
+    Lowpass.cpp
+    Lowpass2.cpp
+    Lowshelf.cpp
+    Lowshelf2.cpp
+    OnePole.cpp
+    registration.cpp
+    SVF.cpp
+    Tilt.cpp
+    Tilt2.cpp
+    TwoPole.cpp
+)

@@ -4,6 +4,7 @@ message(STATUS "Project name is ${PROJECT}")
 project (${PROJECT})
 
 include_directories(${CMAKE_SOURCE_DIR}/TPTFilter/include)
+include_directories(${MD_AUDIO_PATH}/include)
 include_directories(${SC_PATH}/include/plugin_interface)
 include_directories(${SC_PATH}/include/common)
 include_directories(${SC_PATH}/common)
@@ -92,7 +93,7 @@ macro(BUILD_PLUGIN PLUGIN_NAME PLUGIN_SOURCES)
 endmacro()
 
 # 1 - Build TPTFilter UGens
-set(PLUGIN_SOURCES "registration.cpp;Base.cpp;OnePole.cpp;TwoPole.cpp;Lowpass.cpp;Highpass.cpp;Allpass.cpp;Lowshelf.cpp;Highshelf.cpp;Tilt.cpp;SVF.cpp;Lowpass2.cpp;Highpass2.cpp;Bandpass.cpp;Bandstop.cpp;Lowshelf2.cpp;Highshelf2.cpp;Bandshelf.cpp;Tilt2.cpp;Allpass2.cpp")
+include("${CMAKE_CURRENT_SOURCE_DIR}/TPTFilter/src/sourcelist.cmake")
 list(TRANSFORM PLUGIN_SOURCES PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/TPTFilter/src/")
 
 BUILD_PLUGIN(TPTFilter "${PLUGIN_SOURCES}")
