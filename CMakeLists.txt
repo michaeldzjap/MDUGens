@@ -1,10 +1,18 @@
-cmake_minimum_required (VERSION 2.8)
+cmake_minimum_required (VERSION 2.8.12)
 get_filename_component(PROJECT MDUGens NAME_WE)
 message(STATUS "Project name is ${PROJECT}")
 project (${PROJECT})
 
-include_directories(${CMAKE_SOURCE_DIR}/TPTFilter/include)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+include_directories(${CMAKE_SOURCE_DIR}/memory/include)
+include_directories(${CMAKE_SOURCE_DIR}/MDAudio/include)
+# include_directories(${CMAKE_SOURCE_DIR}/TPTFilter/include)
 include_directories(${MD_AUDIO_PATH}/include)
+include_directories(${MD_AUDIO_PATH}/include/interfaces)
+include_directories(${MD_AUDIO_PATH}/include/memory)
 include_directories(${SC_PATH}/include/plugin_interface)
 include_directories(${SC_PATH}/include/common)
 include_directories(${SC_PATH}/common)
@@ -92,11 +100,22 @@ macro(BUILD_PLUGIN PLUGIN_NAME PLUGIN_SOURCES)
     endif()
 endmacro()
 
-# 1 - Build TPTFilter UGens
-include("${CMAKE_CURRENT_SOURCE_DIR}/TPTFilter/src/sourcelist.cmake")
-list(TRANSFORM PLUGIN_SOURCES PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/TPTFilter/src/")
+# # 1 - Build MDAudio UGens
+# include("${CMAKE_CURRENT_SOURCE_DIR}/ReverseDelay/src/sourcelist.cmake")
+# BUILD_PLUGIN(ReverseDelay "${REVERSE_DELAY_SOURCES}")
+include("${MD_AUDIO_PATH}/src/sourcelist.cmake")
+list(TRANSFORM MD_AUDIO_SOURCES PREPEND "${MD_AUDIO_PATH}/src/")
 
-BUILD_PLUGIN(TPTFilter "${PLUGIN_SOURCES}")
+include("${CMAKE_CURRENT_SOURCE_DIR}/MDAudio/src/sourcelist.cmake")
 
-# 2 - Build SOSBank UGens
+set(MD_AUDIO_SOURCES_TOTAL ${MD_AUDIO_SOURCES} ${MD_AUDIO_SC_SOURCES})
+BUILD_PLUGIN(MDAudio "${MD_AUDIO_SOURCES_TOTAL}")
+
+# 2 - Build TPTFilter UGens
+# include("${CMAKE_CURRENT_SOURCE_DIR}/TPTFilter/src/sourcelist.cmake")
+# list(TRANSFORM TPT_FILTER_SOURCES PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/TPTFilter/src/")
+#
+# BUILD_PLUGIN(TPTFilter "${TPT_FILTER_SOURCES}")
+
+# 3 - Build SOSBank UGens
 BUILD_PLUGIN(SOSBank "SOSBank/SOSBank.cpp")

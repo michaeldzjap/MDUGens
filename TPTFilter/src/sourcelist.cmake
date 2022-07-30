@@ -1,4 +1,4 @@
-set(PLUGIN_SOURCES ${PLUGIN_SOURCES}
+set(TPT_FILTER_SOURCES ${TPT_FILTER_SOURCES}
     Allpass.cpp
     Allpass2.cpp
     Bandpass.cpp

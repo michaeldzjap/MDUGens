@@ -12,7 +12,7 @@
 VariableDelay {
 
 	*ar { arg input, maxDelayTime = 0.2, delayTime = 0.2, dur = 0.2, overlap = 2;
-		var trig, phase, window, output, offset, rate = dur.reciprocal;
+		var trig, phase, window, output, rate = dur.reciprocal;
 
 		phase = { |i|
 			(Phasor.ar(0, rate * SampleDur.ir, 0, 1) + (i * overlap.reciprocal)).wrap(0, 1)
