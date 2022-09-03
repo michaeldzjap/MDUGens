@@ -1,10 +1,10 @@
 #ifndef MD_UGENS_ALLPASS_LINEAR_HPP
 #define MD_UGENS_ALLPASS_LINEAR_HPP
 
+#include "SCAllocator.hpp"
 #include "SCPool.hpp"
 #include "SC_PlugIn.hpp"
 #include "AllpassLinear.hpp"
-#include "types.hpp"
 
 namespace md_ugens {
 
@@ -14,7 +14,8 @@ namespace md_ugens {
 
     private:
         memory::SCPool m_pool;
-        md_audio::AllpassLinear m_allpass;
+        memory::SCAllocator<double, memory::SCPool> m_allocator;
+        md_audio::AllpassLinear<memory::SCAllocator<double, memory::SCPool>> m_allpass;
         float m_delay_time;
         float m_gain;
 

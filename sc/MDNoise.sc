@@ -1,4 +1,4 @@
-MD_WhiteNoise : PureUGen {
+MDWhiteNoise : PureUGen {
 
 	*ar { arg mul = 1.0, add = 0.0;
 		^this.multiNew('audio').madd(mul, add);

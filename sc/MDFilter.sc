@@ -130,6 +130,30 @@ MDBandpass : Filter {
 
 }
 
+MDBandstop : Filter {
+
+	*ar { arg in = 0.0, freq = 440.0, r = 1.0, mul = 1.0, add = 0.0;
+		^this.multiNew('audio', in.asAudioRateInput, freq, r).madd(mul, add);
+	}
+
+	*kr { arg in = 0.0, freq = 440.0, r = 1.0, mul = 1.0, add = 0.0;
+		^this.multiNew('control', in, freq, r).madd(mul, add);
+	}
+
+}
+
+MDBandshelf : Filter {
+
+	*ar { arg in = 0.0, freq = 440.0, r = 1.0, gain = 0.0, mul = 1.0, add = 0.0;
+		^this.multiNew('audio', in.asAudioRateInput, freq, r, gain).madd(mul, add);
+	}
+
+	*kr { arg in = 0.0, freq = 440.0, r = 1.0, gain = 0.0, mul = 1.0, add = 0.0;
+		^this.multiNew('control', in, freq, r, gain).madd(mul, add);
+	}
+
+}
+
 MDAllpassFirstOrder : Filter {
 
 	*ar { arg in = 0.0, freq = 440.0, mul = 1.0, add = 0.0;

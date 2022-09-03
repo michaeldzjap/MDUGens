@@ -1,13 +1,14 @@
 set(MD_AUDIO_SC_SOURCES ${MD_AUDIO_SC_SOURCES}
     MDAudio/src/registration.cpp
     MDAudio/src/util.cpp
-    # MDAudio/src/SCAllpassCubic.cpp
+    MDAudio/src/SCAllpassCubic.cpp
     MDAudio/src/SCAllpassFirstOrder.cpp
+    MDAudio/src/SCAllpassLinear.cpp
     MDAudio/src/SCAllpassSecondOrder.cpp
+    MDAudio/src/SCAllpassStatic.cpp
     MDAudio/src/SCBandpass.cpp
-    # MDAudio/src/SCAllpassLinear.cpp
-    # MDAudio/src/SCAllpassStatic.cpp
-    # MDAudio/src/SCDelay.cpp
+    MDAudio/src/SCBandshelf.cpp
+    MDAudio/src/SCBandstop.cpp
     MDAudio/src/SCDelayCubic.cpp
     MDAudio/src/SCDelayLinear.cpp
     MDAudio/src/SCDelayStatic.cpp
@@ -34,6 +35,6 @@ set(MD_AUDIO_SC_SOURCES ${MD_AUDIO_SC_SOURCES}
     MDAudio/src/SCTiltFirstOrder.cpp
     MDAudio/src/SCTiltSecondOrder.cpp
     # MDAudio/src/SCVariableDelay.cpp
-    # MDAudio/src/SCWhiteNoise.cpp
+    MDAudio/src/SCWhiteNoise.cpp
     memory/SCPool.cpp
 )

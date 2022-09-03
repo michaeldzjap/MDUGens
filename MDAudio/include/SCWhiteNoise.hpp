@@ -11,7 +11,7 @@ namespace md_ugens {
         explicit WhiteNoise();
 
     private:
-        md_audio::WhiteNoise m_noise;
+        md_audio::WhiteNoise m_generator;
 
         void next(int inNumSamples) noexcept;
     };

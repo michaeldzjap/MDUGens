@@ -1,10 +1,11 @@
-// #include "SCAllpassCubic.hpp"
+#include "SCAllpassCubic.hpp"
 #include "SCAllpassFirstOrder.hpp"
+#include "SCAllpassLinear.hpp"
 #include "SCAllpassSecondOrder.hpp"
-// #include "SCAllpassLinear.hpp"
-// #include "SCAllpassStatic.hpp"
-// #include "SCDelay.hpp"
+#include "SCAllpassStatic.hpp"
 #include "SCBandpass.hpp"
+#include "SCBandshelf.hpp"
+#include "SCBandstop.hpp"
 #include "SCDelayCubic.hpp"
 #include "SCDelayLinear.hpp"
 #include "SCDelayStatic.hpp"
@@ -31,16 +32,17 @@
 #include "SCTiltFirstOrder.hpp"
 #include "SCTiltSecondOrder.hpp"
 // #include "SCVariableDelay.hpp"
-// #include "SCWhiteNoise.hpp"
-// #include "registration.hpp"
+#include "SCWhiteNoise.hpp"
+#include "registration.hpp"
 
-// using md_ugens::AllpassCubic;
+using md_ugens::AllpassCubic;
 using md_ugens::AllpassFirstOrder;
+using md_ugens::AllpassLinear;
 using md_ugens::AllpassSecondOrder;
+using md_ugens::AllpassStatic;
 using md_ugens::Bandpass;
-// using md_ugens::AllpassLinear;
-// using md_ugens::AllpassStatic;
-// using md_ugens::Delay;
+using md_ugens::Bandshelf;
+using md_ugens::Bandstop;
 using md_ugens::DelayCubic;
 using md_ugens::DelayLinear;
 using md_ugens::DelayStatic;
@@ -67,19 +69,20 @@ using md_ugens::LowshelfSecondOrder;
 using md_ugens::TiltFirstOrder;
 using md_ugens::TiltSecondOrder;
 // using md_ugens::VariableDelay;
-// using md_ugens::WhiteNoise;
+using md_ugens::WhiteNoise;
 
 InterfaceTable *ft;
 
 PluginLoad(MDAudio) {
     ft = inTable;
-    // registerUnit<AllpassStatic>(ft, "MD_AllpassStatic");
-    // registerUnit<AllpassCubic>(ft, "MD_AllpassCubic");
+    registerUnit<AllpassCubic>(ft, "MDAllpassCubic");
+    registerUnit<AllpassLinear>(ft, "MDAllpassLinear");
     registerUnit<AllpassFirstOrder>(ft, "MDAllpassFirstOrder");
     registerUnit<AllpassSecondOrder>(ft, "MDAllpassSecondOrder");
+    registerUnit<AllpassStatic>(ft, "MDAllpassStatic");
     registerUnit<Bandpass>(ft, "MDBandpass");
-    // registerUnit<AllpassLinear>(ft, "MD_AllpassLinear");
-    // registerUnit<Delay>(ft, "MD_Delay");
+    registerUnit<Bandshelf>(ft, "MDBandshelf");
+    registerUnit<Bandstop>(ft, "MDBandstop");
     registerUnit<DelayStatic>(ft, "MDDelayStatic");
     registerUnit<DelayCubic>(ft, "MDDelayCubic");
     registerUnit<DelayLinear>(ft, "MDDelayLinear");
@@ -106,5 +109,5 @@ PluginLoad(MDAudio) {
     registerUnit<TiltFirstOrder>(ft, "MDTiltFirstOrder");
     registerUnit<TiltSecondOrder>(ft, "MDTiltSecondOrder");
     // registerUnit<VariableDelay>(ft, "MD_VariableDelay");
-    // registerUnit<WhiteNoise>(ft, "MD_WhiteNoise");
+    registerUnit<WhiteNoise>(ft, "MDWhiteNoise");
 }
