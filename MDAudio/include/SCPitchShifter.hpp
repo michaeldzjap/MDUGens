@@ -1,6 +1,7 @@
 #ifndef MD_UGENS_PITCH_SHIFTER_HPP
 #define MD_UGENS_PITCH_SHIFTER_HPP
 
+#include "SCAllocator.hpp"
 #include "SCPool.hpp"
 #include "SC_PlugIn.hpp"
 #include "PitchShifter.hpp"
@@ -13,7 +14,8 @@ namespace md_ugens {
 
     private:
         memory::SCPool m_pool;
-        md_audio::PitchShifter m_shifter;
+        memory::SCAllocator<double, memory::SCPool> m_allocator;
+        md_audio::PitchShifter<memory::SCAllocator<double, memory::SCPool>> m_shifter;
         float m_size;
         float m_transposition;
 

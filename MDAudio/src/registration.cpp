@@ -19,19 +19,14 @@
 #include "SCLowshelfFirstOrder.hpp"
 #include "SCLowshelfSecondOrder.hpp"
 // #include "SCPhasor.hpp"
-// #include "SCPitchShifter.hpp"
+#include "SCPitchShifter.hpp"
 // #include "SCReverb.hpp"
-// #include "SCReverseDelay.hpp"
-// #include "SCReversibleDelay.hpp"
+#include "SCReverseDelay.hpp"
 // #include "SCSineOscillator.hpp"
 // #include "SCSineShaper.hpp"
-// #include "SCTapDelay.hpp"
-// #include "SCTapDelayCubic.hpp"
-// #include "SCTapDelayLinear.hpp"
-// #include "SCTapDelayStatic.hpp"
 #include "SCTiltFirstOrder.hpp"
 #include "SCTiltSecondOrder.hpp"
-// #include "SCVariableDelay.hpp"
+#include "SCVariableDelay.hpp"
 #include "SCWhiteNoise.hpp"
 #include "registration.hpp"
 
@@ -56,19 +51,14 @@ using md_ugens::LowpassSecondOrder;
 using md_ugens::LowshelfFirstOrder;
 using md_ugens::LowshelfSecondOrder;
 // using md_ugens::Phasor;
-// using md_ugens::PitchShifter;
+using md_ugens::PitchShifter;
 // using md_ugens::Reverb;
-// using md_ugens::ReverseDelay;
-// using md_ugens::ReversibleDelay;
+using md_ugens::ReverseDelay;
 // using md_ugens::SineOscillator;
 // using md_ugens::SineShaper;
-// using md_ugens::TapDelay;
-// using md_ugens::TapDelayCubic;
-// using md_ugens::TapDelayLinear;
-// using md_ugens::TapDelayStatic;
 using md_ugens::TiltFirstOrder;
 using md_ugens::TiltSecondOrder;
-// using md_ugens::VariableDelay;
+using md_ugens::VariableDelay;
 using md_ugens::WhiteNoise;
 
 InterfaceTable *ft;
@@ -96,18 +86,13 @@ PluginLoad(MDAudio) {
     registerUnit<LowshelfFirstOrder>(ft, "MDLowshelfFirstOrder");
     registerUnit<LowshelfSecondOrder>(ft, "MDLowshelfSecondOrder");
     // registerUnit<Phasor>(ft, "MD_Phasor");
-    // registerUnit<PitchShifter>(ft, "MD_PitchShifter");
+    registerUnit<PitchShifter>(ft, "MDPitchShifter");
     // registerUnit<Reverb>(ft, "MD_Reverb");
-    // registerUnit<ReverseDelay>(ft, "MD_ReverseDelay");
-    // registerUnit<ReversibleDelay>(ft, "MD_ReversibleDelay");
+    registerUnit<ReverseDelay>(ft, "MDReverseDelay");
     // registerUnit<SineOscillator>(ft, "MD_SineOscillator");
     // registerUnit<SineShaper>(ft, "MD_SineShaper");
-    // registerUnit<TapDelay>(ft, "MD_TapDelay");
-    // registerUnit<TapDelayCubic>(ft, "MD_TapDelayCubic");
-    // registerUnit<TapDelayLinear>(ft, "MD_TapDelayLinear");
-    // registerUnit<TapDelayStatic>(ft, "MD_TapDelayStatic");
     registerUnit<TiltFirstOrder>(ft, "MDTiltFirstOrder");
     registerUnit<TiltSecondOrder>(ft, "MDTiltSecondOrder");
-    // registerUnit<VariableDelay>(ft, "MD_VariableDelay");
+    registerUnit<VariableDelay>(ft, "MDVariableDelay");
     registerUnit<WhiteNoise>(ft, "MDWhiteNoise");
 }

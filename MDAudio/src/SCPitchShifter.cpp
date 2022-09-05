@@ -4,25 +4,39 @@ using md_ugens::PitchShifter;
 
 PitchShifter::PitchShifter() :
     m_pool(mWorld),
+    m_allocator(&m_pool),
     m_shifter(
-        (md_audio::PitchShifter::set_sample_rate(sampleRate()), m_pool),
+        (
+            md_audio::PitchShifter<memory::SCAllocator<double, memory::SCPool>>::set_sample_rate(sampleRate()),
+            m_allocator
+        ),
         in0(1),
         in0(2),
-        in0(3),
-        in0(4)
+        in0(3)
     )
 {
+    if (!m_shifter.initialise()) {
+        printf("Could not allocate real-time memory for MDPitchShifter\n");
+
+        set_calc_function<PitchShifter, &PitchShifter::clear>();
+
+        return;
+    }
+
     if (isAudioRateIn(2) && isAudioRateIn(3))
         set_calc_function<PitchShifter, &PitchShifter::next_aa>();
     else if (isAudioRateIn(2) && !isAudioRateIn(3)) {
         m_transposition = in0(3);
+
         set_calc_function<PitchShifter, &PitchShifter::next_ak>();
     } else if (!isAudioRateIn(2) && isAudioRateIn(3)) {
         m_size = in0(2);
+
         set_calc_function<PitchShifter, &PitchShifter::next_ka>();
     } else {
         m_size = in0(2);
         m_transposition = in0(3);
+
         set_calc_function<PitchShifter, &PitchShifter::next_kk>();
     }
 }
@@ -37,7 +51,7 @@ void PitchShifter::next_aa(int inNumSamples) noexcept {
         m_shifter.set_size(size[i]);
         m_shifter.set_transposition(transposition[i]);
 
-        outBuf[i] = m_shifter.perform(inBuf[i]);
+        outBuf[i] = m_shifter.process(inBuf[i]);
     }
 }
 
@@ -54,7 +68,7 @@ void PitchShifter::next_ak(int inNumSamples) noexcept {
         m_shifter.set_size(sampleRate() * size[i]);
         m_shifter.set_transposition(m_transposition);
 
-        outBuf[i] = m_shifter.perform(inBuf[i]);
+        outBuf[i] = m_shifter.process(inBuf[i]);
     }
 }
 
@@ -71,7 +85,7 @@ void PitchShifter::next_ka(int inNumSamples) noexcept {
         m_shifter.set_size(m_size);
         m_shifter.set_transposition(transposition[i]);
 
-        outBuf[i] = m_shifter.perform(inBuf[i]);
+        outBuf[i] = m_shifter.process(inBuf[i]);
     }
 }
 
@@ -89,7 +103,7 @@ void PitchShifter::next_kk(int inNumSamples) noexcept {
         m_shifter.set_size(m_size);
         m_shifter.set_transposition(m_transposition);
 
-        outBuf[i] = m_shifter.perform(inBuf[i]);
+        outBuf[i] = m_shifter.process(inBuf[i]);
     }
 }
 
